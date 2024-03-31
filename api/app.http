@@ -1,0 +1,16 @@
+### registering new user
+
+POST http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+    "firstname":"Steve",
+    "middlename":"patient",
+    "lastname":"2",
+    "email":"stevehotcodes@gmail.com",
+    "password":"12345678",
+    "phone_number":"+254704453499"
+}
+
+### get all users
+GET http://localhost:5000/api/user

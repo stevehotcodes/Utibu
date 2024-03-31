@@ -10,7 +10,8 @@ CREATE TABLE tbl_users(
     lastname VARCHAR (300) DEFAULT 'no lastname',
     email VARCHAR(300) UNIQUE DEFAULT 'no email',
     password VARCHAR (300) DEFAULT 'no password',
-    role VARCHAR (300) DEFAULT 'patient'
+    role VARCHAR (300) DEFAULT 'patient',
+    registered_on VARCHAR(300) DEFAULT GETDATE()
 
 )
 ----create medical  products table
