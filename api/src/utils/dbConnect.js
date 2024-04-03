@@ -1,17 +1,18 @@
 import mssql from 'mssql'
+import dotenv from 'dotenv'
 
-
+dotenv.config()
 
 
 const dbConfig={
-    user:'sa',
-    database:'Utibu',
-    server:'localhost',
-    password:'Omosh123',
-    port:1433,
+    user:process.env.MSSQL_USERNAME,
+    database:process.env.DATABASE,
+    server:process.env.MSSQL_SERVER_NAME,
+    password:process.env.MSSQL_PASSWORD,
+    port:MSSQL_SERVER_PORT,
     options:{
-        encrypt:false,
-        trustServerCertificate:true
+        encrypt:false, //for local development 
+        trustServerCertificate:true //for local development but false for azure
     }
 
 }

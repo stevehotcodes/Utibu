@@ -6,12 +6,16 @@ import userRouter from "./src/routes/userRoutes.js"
 import bodyParser from "body-parser"
 import productRouter from "./src/routes/productRoute.js"
 import orderRouter from "./src/routes/orderRoutes.js"
+import dotenv from 'dotenv'
+
+
+dotenv.config()
 
 
 
 
 const app=express()
-const port =5000
+const port =5000 || process.env.PORT 
 
 //middleware
 app.use(cors())
