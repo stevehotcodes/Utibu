@@ -2,14 +2,18 @@ import * as uuid from 'uuid'
 import mssql from 'mssql'
 import { poolRequest } from '../utils/dbConnect.js'
 import logger from '../utils/logger.js'
+import bcrypt from 'bcrypt'
+import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
 
-
+dotenv.config()
 
 const user_id=uuid.v4()
 
 
 export const registerNewUserService=async({firstname,middlename,lastname,email,phone_number,password})=>{
     logger.info("user details in the service",firstname)
+    const hashedPassword=await bcrypt.hash(password, 10)
     try{
         const result=await poolRequest()
         .input('user_id',mssql.VarChar, user_id)
@@ -18,7 +22,7 @@ export const registerNewUserService=async({firstname,middlename,lastname,email,p
         .input('lastname', mssql.VarChar,lastname)
         .input('email',mssql.VarChar, email)
         .input('phone_number', mssql.VarChar,phone_number)
-        .input('password', mssql.VarChar,password)
+        .input('password', mssql.VarChar,hashedPassword)
         .query(`
             INSERT INTO tbl_users(user_id, firstname, middlename, lastname, email, phone_number,password)
             VALUES(@user_id,@firstname,@middlename,@lastname,@email,@phone_number,@password)        
@@ -59,4 +63,58 @@ export const  getAllUsersService=async()=>{
     catch(error){
         return error 
     }
+}
+
+export const findByCredentialsService = async (user) => {
+    try {
+        const userFoundResponse = await poolRequest()
+            .input('email', mssql.VarChar, user.email)
+            .query(` SELECT tbl_users.*
+                     FROM tbl_users
+                                   
+                     WHERE tbl_users.email = @email`);
+            console.log(userFoundResponse)
+        if (userFoundResponse.recordset[0]) {
+
+
+            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
+
+                let token = jwt.sign(
+                    {
+                        user_id: userFoundResponse.recordset[0].user_id,
+                        firstname: userFoundResponse.recordset[0].firstname,
+                        email: userFoundResponse.recordset[0].email
+                    },
+
+                    process.env.SECRET || 'yheyhhdhsbc64yycs', { expiresIn: "12h" } 
+                );
+                const { password, ...user } = userFoundResponse.recordset[0];
+                console.log('user details:',user)
+                return { user, token: `JWT ${token}` };
+            } 
+            if (userFoundResponse.recordset[0].role=='admin'){
+                let token = jwt.sign(
+                    {
+                        user_id: userFoundResponse.recordset[0].user_id,
+                        firstname: userFoundResponse.recordset[0].firstname,
+                        email: userFoundResponse.recordset[0].email
+                    },
+
+                    process.env.SECRET, { expiresIn: "12h" } 
+                );
+                const { password, ...user } = userFoundResponse.recordset[0];
+                console.log('user details:',user)
+                return { user, token: `JWT ${token}` };
+
+            }
+
+
+        } else {
+            return { error: 'Invalid Credentials' };
+        }
+
+    } catch (error) {
+        return error;
+    }
+
 }

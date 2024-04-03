@@ -1,5 +1,5 @@
 import { dataFethched, sendBadRequest, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.function.js"
-import { getAllUsersService, getUserByEmailService, registerNewUserService } from "../services/userService.js"
+import { findByCredentialsService, getAllUsersService, getUserByEmailService, registerNewUserService } from "../services/userService.js"
 import logger from "../utils/logger.js"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
@@ -53,57 +53,23 @@ export const getAllUsers=async(req,res)=>{
     }
 }
 
-export const findByCredentialsService = async (user) => {
-    try {
-        const userFoundResponse = await poolRequest()
-            .input('email', mssql.VarChar, user.email)
-            .query(` SELECT tbl_user.*
-                     FROM tbl_user
-                                   
-                     WHERE tbl_user.email = @email`);
-            console.log(userFoundResponse)
-        if (userFoundResponse.recordset[0]) {
 
 
-            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
 
-                let token = jwt.sign(
-                    {
-                        user_id: userFoundResponse.recordset[0].user_id,
-                        firstname: userFoundResponse.recordset[0].firstname,
-                        email: userFoundResponse.recordset[0].email
-                    },
+    
+        try {
+            const userResponse = await findByCredentialsService({ email, password });
+            console.log(userResponse)
+              console.log(userResponse)
+            //   return   res.status(200).send(userResponse);
+                console.log(userResponse)
+               return  res.status(200).json({user:userResponse.user, token:userResponse.token});
 
-                    process.env.SECRET, { expiresIn: "12h" } 
-                );
-                const { password, ...user } = userFoundResponse.recordset[0];
-                console.log('user details:',user)
-                return { user, token: `JWT ${token}` };
-            } 
-            if (userFoundResponse.recordset[0].role=='admin'){
-                let token = jwt.sign(
-                    {
-                        user_id: userFoundResponse.recordset[0].user_id,
-                        firstname: userFoundResponse.recordset[0].firstname,
-                        email: userFoundResponse.recordset[0].email
-                    },
-
-                    process.env.SECRET, { expiresIn: "12h" } 
-                );
-                const { password, ...user } = userFoundResponse.recordset[0];
-                console.log('user details:',user)
-                return { user, token: `JWT ${token}` };
-
-            }
-
-
-        } else {
-            return { error: 'Invalid Credentials' };
+            
+        } catch (error) {
+            sendServerError(res, error.message)
         }
-
-    } catch (error) {
-        return error;
-    }
-
-}
-
+    
+};
