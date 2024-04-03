@@ -4,6 +4,8 @@ import { appPool } from "./src/utils/dbConnect.js"
 import cors from 'cors'
 import userRouter from "./src/routes/userRoutes.js"
 import bodyParser from "body-parser"
+import productRouter from "./src/routes/productRoute.js"
+import orderRouter from "./src/routes/orderRoutes.js"
 
 
 
@@ -22,7 +24,8 @@ app.use(bodyParser())
 
 
 app.use('/api',userRouter)
-
+app.use('/api', productRouter)
+app.use('/api', orderRouter )
 
 
 
