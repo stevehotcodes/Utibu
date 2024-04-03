@@ -6,10 +6,10 @@ dotenv.config()
 
 const dbConfig={
     user:process.env.MSSQL_USERNAME,
-    database:process.env.DATABASE,
+    database:process.env.MSSQL_DATABASE_NAME,
     server:process.env.MSSQL_SERVER_NAME,
     password:process.env.MSSQL_PASSWORD,
-    port:MSSQL_SERVER_PORT,
+    port: 1433,
     options:{
         encrypt:false, //for local development 
         trustServerCertificate:true //for local development but false for azure

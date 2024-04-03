@@ -37,17 +37,16 @@ export const registerNewUser=async(req,res)=>{
     }
 }
 
+// get all patients records
 export const getAllUsers=async(req,res)=>{
     try {
-         const result=await getAllUsersService()
-         if(result.length>0){
-            dataFethched(res,result)
+         const users=await getAllUsersService()
+         if(users.length){
+            dataFethched(res,users)
          }
          else{
             sendNotFound(res, `no users' records found`)
          }
-
-
         
     } catch (error) {
         sendServerError(res,error.message)
