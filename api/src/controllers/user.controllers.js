@@ -61,11 +61,11 @@ export const loginUser = async (req, res) => {
     
         try {
             const userResponse = await findByCredentialsService({ email, password });
-            console.log(userResponse)
-              console.log(userResponse)
-            //   return   res.status(200).send(userResponse);
-                console.log(userResponse)
-               return  res.status(200).json({user:userResponse.user, token:userResponse.token});
+            // console.log(userResponse)
+            //   console.log(userResponse)
+            // //   return   res.status(200).send(userResponse);
+            //     console.log(userResponse)
+               return  res.status(200).json({user:userResponse.user, token:userResponse.token, message:userResponse.message});
 
             
         } catch (error) {

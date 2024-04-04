@@ -7,7 +7,7 @@ Content-Type: application/json
     "firstname":"Steve",
     "middlename":"patient",
     "lastname":"2",
-    "email":"stevehot@gmail.com",
+    "email":"ondiekistephen00@gmail.com",
     "password":"12345678",
     "phone_number":"+254704453499"
 }
@@ -20,6 +20,6 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email":"ondiekistephen00@gmail.com",
+    "email":"stevehot@gmail.com",
     "password":"12345678"
 }

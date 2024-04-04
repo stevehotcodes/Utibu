@@ -67,32 +67,37 @@ export const  getAllUsersService=async()=>{
 
 export const findByCredentialsService = async (user) => {
     try {
+        console.log('user ', user )
         const userFoundResponse = await poolRequest()
             .input('email', mssql.VarChar, user.email)
             .query(` SELECT tbl_users.*
                      FROM tbl_users
                                    
                      WHERE tbl_users.email = @email`);
-            console.log(userFoundResponse)
+            console.log( "from the user service" ,userFoundResponse.recordset[0])
         if (userFoundResponse.recordset[0]) {
+             if(userFoundResponse.recordset[0].role=='patient'){
+                if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
 
-
-            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
-
-                let token = jwt.sign(
-                    {
-                        user_id: userFoundResponse.recordset[0].user_id,
-                        firstname: userFoundResponse.recordset[0].firstname,
-                        email: userFoundResponse.recordset[0].email
-                    },
-
-                    process.env.SECRET || 'yheyhhdhsbc64yycs', { expiresIn: "12h" } 
-                );
-                const { password, ...user } = userFoundResponse.recordset[0];
-                console.log('user details:',user)
-                return { user, token: `JWT ${token}` };
-            } 
+                    let token = jwt.sign(
+                        {
+                            user_id: userFoundResponse.recordset[0].user_id,
+                            firstname: userFoundResponse.recordset[0].firstname,
+                            email: userFoundResponse.recordset[0].email
+                        },
+    
+                        process.env.SECRET || 'yheyhhdhsbc64yycs', { expiresIn: "12h" } 
+                    );
+                   
+                    const { password, ...user } = userFoundResponse.recordset[0];
+    
+                    return { user, token: `JWT ${token}`, message:"Log in as a user" };
+                } 
+             }
+           
             if (userFoundResponse.recordset[0].role=='admin'){
+
+                if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)){
                 let token = jwt.sign(
                     {
                         user_id: userFoundResponse.recordset[0].user_id,
@@ -104,8 +109,7 @@ export const findByCredentialsService = async (user) => {
                 );
                 const { password, ...user } = userFoundResponse.recordset[0];
                 console.log('user details:',user)
-                return { user, token: `JWT ${token}` };
-
+                return { user, token: `JWT ${token}` ,message:"log in as an admin"}};
             }
 
 
