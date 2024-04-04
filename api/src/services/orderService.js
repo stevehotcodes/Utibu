@@ -14,7 +14,7 @@ export const createCartService=async({product_id, quantity,user_id})=>{
            .input('user_id', mssql.VarChar,user_id)
            .query(`INSERT INTO cart (cart_id, product_id, quantity, user_id)
            VALUES (@cart_id, @product_id, @quantity, @user_id)`)
-
+           
            return result.rowsAffected
         
     } catch (error) {

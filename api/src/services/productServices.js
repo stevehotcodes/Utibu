@@ -10,15 +10,11 @@ export const getProductService=async(id)=>{
         const result=await poolRequest()
         .input('product_id',mssql.VarChar, id)
         .query(`SELECT * FROM tbl_medical_products WHERE product_id=@product-id`)
-
         return result.recordset
-
        
    } catch (error) {
        return error
    }
-
-
 }
 
 
@@ -37,12 +33,12 @@ export const addNewProductService=async({product_name,product_description,price,
         .query(`
             INSERT INTO tbl_medical_products(product_id, product_name, prodcut_description, price, email, stock_quantity)
             VALUES(@prodcut_id, @product_name, @product_description,@price,@email,@stock_quqntity)        
-        
         `)
 
         return result.rowsAffected
 
     }
+
     catch(error){
         return error
 
