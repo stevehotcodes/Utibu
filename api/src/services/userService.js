@@ -90,7 +90,7 @@ export const findByCredentialsService = async (user) => {
                             email: userFoundResponse.recordset[0].email
                         },
     
-                        process.env.SECRET || 'yheyhhdhsbc64yycs', { expiresIn: "12h" } 
+                        process.env.SECRET , { expiresIn: "12h" } 
                     );
                    
                     const { password, ...user } = userFoundResponse.recordset[0];
@@ -117,7 +117,7 @@ export const findByCredentialsService = async (user) => {
                 console.log('user details:',user)
                 return { user, token: `JWT ${token}` ,message:"log in as an admin"}};
             }
-            
+
 
 
         } else {
