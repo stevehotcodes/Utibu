@@ -14,3 +14,9 @@ export function authenticateToken(req, res, next) {
         next();
     });
 }
+
+function verifyAccount (req, res){
+    const authHeader = req.headers['authorization'];
+    let message='Unauthorized'
+
+}

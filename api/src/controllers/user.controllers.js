@@ -61,11 +61,22 @@ export const loginUser = async (req, res) => {
     
         try {
             const userResponse = await findByCredentialsService({ email, password });
-            // console.log(userResponse)
-            //   console.log(userResponse)
-            // //   return   res.status(200).send(userResponse);
-            //     console.log(userResponse)
-               return  res.status(200).json({user:userResponse.user, token:userResponse.token, message:userResponse.message});
+            logger.info(userResponse)
+       
+            if(userResponse.sendNotFoundResponse){
+                sendNotFound(res, userResponse.sendNotFoundResponse)
+            }
+
+            if(userResponse.user&&userResponse.token){
+                return  res.status(200).json({user:userResponse.user, token:userResponse.token, message:userResponse.message});
+            }
+
+            if(userResponse.sendwrongPassword){
+                logger.info(userResponse.sendwrongPassword)
+                sendBadRequest(res, userResponse.sendwrongPassword)
+            }
+
+            
 
             
         } catch (error) {

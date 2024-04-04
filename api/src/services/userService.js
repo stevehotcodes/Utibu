@@ -5,6 +5,7 @@ import logger from '../utils/logger.js'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import { sendNotFound } from '../helpers/helper.function.js'
 
 dotenv.config()
 
@@ -72,9 +73,12 @@ export const findByCredentialsService = async (user) => {
             .input('email', mssql.VarChar, user.email)
             .query(` SELECT tbl_users.*
                      FROM tbl_users
-                                   
                      WHERE tbl_users.email = @email`);
+
             console.log( "from the user service" ,userFoundResponse.recordset[0])
+
+            if(!userFoundResponse.recordset[0]){return {sendNotFoundResponse :"user not found"}}
+
         if (userFoundResponse.recordset[0]) {
              if(userFoundResponse.recordset[0].role=='patient'){
                 if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)) {
@@ -93,7 +97,9 @@ export const findByCredentialsService = async (user) => {
     
                     return { user, token: `JWT ${token}`, message:"Log in as a user" };
                 } 
-             }
+             } 
+                 // if there is a password mismatch
+            if (await bcrypt.compare(user.password, userFoundResponse.recordset[0].password)==false){return {sendwrongPassword:'wrong password'}}
            
             if (userFoundResponse.recordset[0].role=='admin'){
 
@@ -111,6 +117,7 @@ export const findByCredentialsService = async (user) => {
                 console.log('user details:',user)
                 return { user, token: `JWT ${token}` ,message:"log in as an admin"}};
             }
+            
 
 
         } else {
