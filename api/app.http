@@ -24,4 +24,13 @@ Content-Type: application/json
     "password":"1234578"
 }
 
-###
+### add medical products    product_name,product_description,price, stock_quantity
+POST http://localhost:5000/api/product
+Content-Type: application/json
+
+{
+    "product_name":"Clozole B",
+    "product_description":"100mg/100ml",
+    "price":"34",
+    "stock_quantity":"300"
+}

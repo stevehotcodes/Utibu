@@ -31,8 +31,8 @@ export const addNewProductService=async({product_name,product_description,price,
         .input('stock_quantity', mssql.Int,stock_quantity)
 
         .query(`
-            INSERT INTO tbl_medical_products(product_id, product_name, prodcut_description, price, email, stock_quantity)
-            VALUES(@prodcut_id, @product_name, @product_description,@price,@email,@stock_quqntity)        
+            INSERT INTO tbl_medical_products(product_id, product_name, product_description, price, stock_quantity)
+            VALUES(@product_id, @product_name, @product_description,@price,@stock_quantity)        
         `)
 
         return result.rowsAffected

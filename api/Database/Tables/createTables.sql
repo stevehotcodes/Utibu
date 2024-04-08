@@ -25,6 +25,8 @@ CREATE TABLE tbl_medical_products(
     brand VARCHAR(300) DEFAULT NULL
 )
 
+SELECT * FROM tbl_medical_products
+
 ---create orders table
 CREATE TABLE orders(
     order_id VARCHAR(300) PRIMARY KEY,
