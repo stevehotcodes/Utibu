@@ -37,3 +37,5 @@ Content-Type: application/json
 
 ### get all the medical products 
 GET http://localhost:5000/api/product
+### get details of a single product 
+GET http://localhost:5000/api/product/5f1e1c4d-62ef-48a2-9e12-3ab8f5604a16

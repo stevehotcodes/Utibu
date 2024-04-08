@@ -11,6 +11,7 @@ export  const getProduct= async (req,res)=>{
       const {id} = req.params
   
       let product = await getProductService(id)
+      console.log(product)
       if(product[0]){
   
           return res.status(200).json(product[0])

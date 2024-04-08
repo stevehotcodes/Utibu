@@ -9,7 +9,7 @@ export const getProductService=async(id)=>{
     try {
         const result=await poolRequest()
         .input('product_id',mssql.VarChar, id)
-        .query(`SELECT * FROM tbl_medical_products WHERE product_id=@product-id`)
+        .query(`SELECT * FROM tbl_medical_products WHERE product_id=@product_id`)
         return result.recordset
        
    } catch (error) {
