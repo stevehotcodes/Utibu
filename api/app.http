@@ -39,3 +39,15 @@ Content-Type: application/json
 GET http://localhost:5000/api/product
 ### get details of a single product 
 GET http://localhost:5000/api/product/5f1e1c4d-62ef-48a2-9e12-3ab8f5604a16
+### fetching all  products
+GET http://localhost:5000/api/order
+### make ordder
+POST http://localhost:5000/api/order/fd745f82-48b6-4c19-87f3-290288496953
+#### add item to cart
+POST http://localhost:5000/api/cart/5222ef99-29a3-4c30-bff9-1046cc9ecd1b
+Content-Type: application/json
+
+{
+    "product_id":"9984b608-36fd-47e2-a8cd-0bf7c54ac59a",
+    "quantity":7
+}

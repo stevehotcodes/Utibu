@@ -32,7 +32,7 @@ CREATE TABLE orders(
     order_id VARCHAR(300) PRIMARY KEY,
     order_status VARCHAR(300) DEFAULT 'processing' CHECK (order_status IN ('processing', 'paid','shipped','delivered')),
     order_date VARCHAR (300) DEFAULT GETDATE(),
-    user_id VARCHAR (300) DEFAULT NOT NULL FOREIGN KEY REFERENCES tbl_users(user_id)
+    user_id VARCHAR (300) DEFAULT 'no user id ' NOT NULL FOREIGN KEY REFERENCES tbl_users(user_id)
 )
 
 ---create cart table
@@ -43,6 +43,7 @@ CREATE TABLE cart(
     user_id VARCHAR(300) NOT NULL FOREIGN KEY REFERENCES tbl_users(user_id)
 )
 
+SELECT * FROM cart
 ---create sales table 
 CREATE TABLE sales(
 sales_id VARCHAR(200) PRIMARY KEY,
@@ -52,3 +53,5 @@ order_id VARCHAR(200) NOT NULL FOREIGN KEY REFERENCES orders(id),
 price DECIMAL(10,2) 
 )
 
+
+SELECT  * FROM sales

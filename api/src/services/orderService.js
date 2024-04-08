@@ -4,7 +4,7 @@ import * as uuid from 'uuid'
 
 
 
-export const createCartService=async({product_id, quantity,user_id})=>{
+export const createCartService=async(product_id, quantity,user_id)=>{
     try {
            const cart_id=uuid.v4()
            const result= await poolRequest()
@@ -98,6 +98,25 @@ export const getAllOrdersService=async()=>{
 
          return result.recordset
     } catch (error) {
+        return error
+    }
+}
+
+export const updateCartItemQuantityService =async(cart_id, quantity)=>{
+    try{
+        const response=await poolRequest()
+        .input('cart_id', mssql.VarChar, cart_id)
+        .input('quantity', mssql.Int,quantity)
+        .query(`
+                UPDATE cart
+                SET quantity=@quantity
+                WHERE cart_id=@cart_id
+        
+        `)
+        return response
+
+    }
+    catch(error){
         return error
     }
 }
