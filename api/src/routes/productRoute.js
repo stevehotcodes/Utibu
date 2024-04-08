@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addMedicalProduct } from "../controllers/products.controller.js";
+import { addMedicalProduct, getAllProducts } from "../controllers/products.controller.js";
 
 
 
@@ -8,7 +8,7 @@ import { addMedicalProduct } from "../controllers/products.controller.js";
 const productRouter=Router()
 
 productRouter.post('/product', addMedicalProduct)
-
+productRouter.get('/product', getAllProducts)
 
 
 

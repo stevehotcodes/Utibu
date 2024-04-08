@@ -1,5 +1,5 @@
 import { dataFethched, sendBadRequest, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.function.js"
-import { addNewProductService, getProductService } from "../services/productServices.js"
+import { addNewProductService, getAllMedicalProductsService, getProductService } from "../services/productServices.js"
 import logger from "../utils/logger.js"
 import * as uuid from 'uuid'
 import { productValidator } from "../validators/productValidators.js"
@@ -55,3 +55,20 @@ export  const getProduct= async (req,res)=>{
  }
  
  
+export  const getAllProducts= async (req,res)=>{
+  try{
+
+    let products=await getAllMedicalProductsService()
+
+    if(products){
+
+        return res.status(200).json(products)
+    }
+    sendNotFound(res, "no products found")
+  }
+  catch(error){
+  sendServerError(res, error.message)
+    
+  }
+}
+

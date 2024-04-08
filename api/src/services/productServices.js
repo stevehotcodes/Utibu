@@ -44,3 +44,17 @@ export const addNewProductService=async({product_name,product_description,price,
 
     }
 }
+
+export const getAllMedicalProductsService=async()=>{
+    try {
+          
+        const  result =await poolRequest()
+        .query(`SELECT * FROM  tbl_medical_products`)
+         
+        return result.recordset
+
+    } catch (error) {
+        return error 
+        
+    }
+}

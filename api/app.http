@@ -34,3 +34,6 @@ Content-Type: application/json
     "price":"34",
     "stock_quantity":"300"
 }
+
+### get all the medical products 
+GET http://localhost:5000/api/product
