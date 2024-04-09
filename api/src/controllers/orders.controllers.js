@@ -30,7 +30,7 @@ export  const createNewMedicalOrder=async(req,res)=>{
             order_total=item.price
             const sales_id=uuid.v4()
 
-            await addSalesItemService(sales_id,item.product_id,quantity,item.price,order_id)
+            await addSalesItemService(sales_id,item.product_id,item.quantity,item.price,order_id)
 
 
          }

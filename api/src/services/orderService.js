@@ -111,7 +111,6 @@ export const updateCartItemQuantityService =async(cart_id, quantity)=>{
                 UPDATE cart
                 SET quantity=@quantity
                 WHERE cart_id=@cart_id
-        
         `)
         return response
 

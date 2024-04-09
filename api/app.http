@@ -51,3 +51,6 @@ Content-Type: application/json
     "product_id":"9984b608-36fd-47e2-a8cd-0bf7c54ac59a",
     "quantity":7
 }
+
+#### create a new medical order 
+POST http://localhost:5000/api/order/5222ef99-29a3-4c30-bff9-1046cc9ecd1b

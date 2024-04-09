@@ -55,3 +55,4 @@ price DECIMAL(10,2)
 
 
 SELECT  * FROM sales
+SELECT  * FROM orders

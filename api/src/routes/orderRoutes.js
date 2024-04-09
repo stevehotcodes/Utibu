@@ -12,4 +12,6 @@ orderRouter.get('/order', getAllMedicalOrders)
 orderRouter.post('/order/:user_id', createNewMedicalOrder)
 orderRouter.post('/cart/:user_id', addItemtoCart)
 
+
+
 export default orderRouter
