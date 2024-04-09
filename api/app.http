@@ -5,9 +5,9 @@ Content-Type: application/json
 
 {
     "firstname":"Steve",
-    "middlename":"patient",
-    "lastname":"2",
-    "email":"ondiekistephen00@gmail.com",
+    "middlename":"O.",
+    "lastname":"Omondi",
+    "email":"omondistephen350@gmail.com",
     "password":"12345678",
     "phone_number":"+254704453499"
 }
@@ -20,8 +20,8 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email":"stevehot@gmail.com",
-    "password":"1234578"
+    "email":"omondistephen350@gmail.com",
+    "password":"12345678"
 }
 
 ### add medical products    product_name,product_description,price, stock_quantity
@@ -44,7 +44,7 @@ GET http://localhost:5000/api/order
 ### make ordder
 POST http://localhost:5000/api/order/fd745f82-48b6-4c19-87f3-290288496953
 #### add item to cart
-POST http://localhost:5000/api/cart/5222ef99-29a3-4c30-bff9-1046cc9ecd1b
+POST http://localhost:5000/api/cart/b8b24e93-4508-4776-b593-ad10989ec58e
 Content-Type: application/json
 
 {
@@ -54,3 +54,7 @@ Content-Type: application/json
 
 #### create a new medical order 
 POST http://localhost:5000/api/order/5222ef99-29a3-4c30-bff9-1046cc9ecd1b
+##### remove an item from cart 
+DELETE http://localhost:5000/api/cart/9984b608-36fd-47e2-a8cd-0bf7c54ac59a
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjhiMjRlOTMtNDUwOC00Nzc2LWI1OTMtYWQxMDk4OWVjNThlIiwiZmlyc3RuYW1lIjoiU3RldmUiLCJlbWFpbCI6Im9tb25kaXN0ZXBoZW4zNTBAZ21haWwuY29tIiwiaWF0IjoxNzEyNjg0Mzk4LCJleHAiOjE3MTI3Mjc1OTh9.KTKKO4XUieDYK4qb1MfAQ_bV0OIUsCbnr8UII5dBc3g

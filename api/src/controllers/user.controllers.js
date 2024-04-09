@@ -27,6 +27,7 @@ export const registerNewUser = async (req, res) => {
       password: req.body.password,
     };
     const { error } = userRegistrationValidator(newUser);
+    const {firstname, middlename,lastname,email,phone_number,password}=req.body
     // console.log("error", error)
     if (error) {
       sendBadRequest(res, error.details[0].message);
@@ -35,8 +36,7 @@ export const registerNewUser = async (req, res) => {
 
       if (user[0]) {
         logger.info(
-          "there is an existing account associated with that email",
-          user[0]
+          `there is an existing account associated with that email, ${user[0].email}`
         );
         sendBadRequest(
           res,
@@ -44,6 +44,7 @@ export const registerNewUser = async (req, res) => {
         );
       } else {
         logger.info(req.body);
+
         const response = await registerNewUserService({
           firstname,
           middlename,
@@ -51,7 +52,7 @@ export const registerNewUser = async (req, res) => {
           email,
           phone_number,
           password,
-        });
+       } );
         logger.info("response from the server", response);
         if (response.rowsAffected > 0) {
           sendSuccess(res, "User registered succcessfully");

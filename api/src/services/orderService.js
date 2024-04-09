@@ -119,3 +119,19 @@ export const updateCartItemQuantityService =async(cart_id, quantity)=>{
         return error
     }
 }
+
+
+export const removeAProductFromCartService=async(product_id,user_id)=>{
+    try {
+         const response=await poolRequest()
+         .input('product_id',mssql.VarChar,product_id)
+         .input('user_id',mssql.VarChar, user_id)
+         .query(`
+                    DELETE FROM cart WHERE product_id=@product_id AND user_id=@user_id
+             `)
+         return response.rowsAffected
+    } catch (error) {
+         return error
+    }
+}
+

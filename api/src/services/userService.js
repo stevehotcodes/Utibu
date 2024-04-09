@@ -13,7 +13,7 @@ const user_id=uuid.v4()
 
 
 export const registerNewUserService=async({firstname,middlename,lastname,email,phone_number,password})=>{
-    logger.info("user details in the service",firstname)
+    // logger.info("user details in the service",firstname)
     const hashedPassword=await bcrypt.hash(password, 10)
     try{
         const result=await poolRequest()

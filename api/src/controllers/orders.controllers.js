@@ -1,5 +1,5 @@
-import { dataFethched, sendBadRequest, sendCreated, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.function.js"
-import { createCartService, createNewMedicalOrderService, getAllOrdersService, getCartService, getOrdersByUserService, removeItemFromCartService, updateCartItemQuantityService } from "../services/orderService.js"
+import { dataFethched, sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from "../helpers/helper.function.js"
+import { createCartService, createNewMedicalOrderService, getAllOrdersService, getCartService, getOrdersByUserService, removeAProductFromCartService, removeItemFromCartService, updateCartItemQuantityService } from "../services/orderService.js"
 import * as uuid from 'uuid'
 import { addSalesItemService } from "../services/salesService.js"
 import logger from "../utils/logger.js"
@@ -16,6 +16,7 @@ export  const createNewMedicalOrder=async(req,res)=>{
          const order_id=uuid.v4()
          // get content of the cart
          const cart=await getCartService(user_id)
+         console.log("cart", cart)
         //check whether the cart is empty
          if(!cart.length){
             sendNotFound(res,'your cart is empty')
@@ -35,7 +36,8 @@ export  const createNewMedicalOrder=async(req,res)=>{
 
          }
          //clear cart 
-         await removeItemFromCartService(cart.cart_id)
+         await removeItemFromCartService(cart[0].cart_id)
+
 
          return res.status(201).json({
             message:'order creared successfully',
@@ -111,3 +113,32 @@ export const addItemtoCart=async(req, res)=>{
         sendServerError(res,error.message)
     }
 }
+
+export const removeItemFromAnCart=async(req,res)=>{
+    try {
+          const {product_id}=req.params
+          console.log('params', req.params)
+          const user_id=req.user.user_id;
+          console.log("logged in user", user_id)
+          const cart=await getCartService(user_id);
+          
+
+          if(!cart.length){
+              sendNotFound(res, "the cart is empty")
+          }
+
+          else{
+            const result=await removeAProductFromCartService(product_id, user_id)
+            if(result>0){
+                logger.info(`rows affected response`, result)
+                sendDeleteSuccess(res, "item successfully removed from cart")
+            }
+            
+          }
+         
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
