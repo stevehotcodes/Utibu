@@ -39,7 +39,7 @@ MSSQL_SERVER_PORT
 - Run `npm run dev` to start up the development server
 
 
-here is the task that I have been assigned to do Task: Utibu health is a health facility that caters for patients with chronic conditions such as HIV, diabetes and hypertension. Stable patients can be given medication to last several months without having to return for a doctor’s visit. They can also refill their prescriptions at the pharmacy without having to see a doctor. The pharmacist at Utibu health has an inventory system that manages the stock of medication items, customer orders, sales, invoices and payments. It runs on Microsoft SQL Server and on a legacy desktop application developed in Delphi.
+ Utibu health is a health facility that caters for patients with chronic conditions such as HIV, diabetes and hypertension. Stable patients can be given medication to last several months without having to return for a doctor’s visit. They can also refill their prescriptions at the pharmacy without having to see a doctor. The pharmacist at Utibu health has an inventory system that manages the stock of medication items, customer orders, sales, invoices and payments. It runs on Microsoft SQL Server and on a legacy desktop application developed in Delphi.
 
  
 
