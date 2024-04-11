@@ -29,7 +29,7 @@ export function verifyAdmin (req, res,next){
     
     if(!token){return res.status(401).json(message)}
     
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;
         if(user.role==privileges){
